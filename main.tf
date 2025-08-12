@@ -100,7 +100,7 @@ locals {
     Effect    = "Deny"
     Principal = "*"
     Action    = "s3:*"
-    Resource  = [
+    Resource = [
       "${aws_s3_bucket.bucket.arn}/*",
       "${aws_s3_bucket.bucket.arn}",
     ]
@@ -114,10 +114,10 @@ locals {
 
 # If the flag is not changed, we create a deny http policy by default for the bucket
 resource "aws_s3_bucket_policy" "bucket_policy" {
-  count = var.create_default_bucket_policy ? 1 : 0
-  bucket = aws_s3_bucket.bucket.id 
+  count  = var.create_default_bucket_policy ? 1 : 0
+  bucket = aws_s3_bucket.bucket.id
   policy = jsonencode({
-    Version = "2012-10-17"
+    Version   = "2012-10-17"
     Statement = local.deny_insecure_transport_statement
-  }) 
+  })
 }

@@ -1,5 +1,5 @@
 variable "bucket_name" {
-  type    = string
+  type        = string
   description = "S3 Bucket Name"
 }
 
@@ -28,8 +28,8 @@ variable "enable_intelligent_tiering_deep_archive_access" {
 
 variable "create_default_bucket_policy" {
   description = "Let the module know if we need to create a policy"
-  type = bool
-  default = true
+  type        = bool
+  default     = true
 }
 
 variable "versioning" {
@@ -40,8 +40,8 @@ variable "versioning" {
 
 variable "lifecycle_rules" {
   type = list(object({
-    id        = string
-    status    = string
+    id              = string
+    status          = string
     expiration_days = optional(number)
     noncurrent_version_transition = optional(object({
       newer_noncurrent_versions = number
@@ -49,7 +49,7 @@ variable "lifecycle_rules" {
       storage_class             = string
     }))
     abort_incomplete_multipart_upload_days = optional(number)
-    expired_object_delete_marker = optional(bool)
+    expired_object_delete_marker           = optional(bool)
   }))
 
   default = []
