@@ -95,7 +95,9 @@ resource "aws_s3_bucket_intelligent_tiering_configuration" "intelligent_tiering_
 }
 
 locals {
-  deny_insecure_transport_statement = {
+  create_default_bucket_policy = var.create_default_bucket_policy || length(var.custom_policy_statement) > 0
+
+  deny_insecure_transport_statement = var.create_default_bucket_policy ? [{
     Sid       = "DenyInsecureTransport"
     Effect    = "Deny"
     Principal = "*"
@@ -109,15 +111,17 @@ locals {
         "aws:SecureTransport" = "false"
       }
     }
-  }
+  }] : []
+
+  merged_policy = jsonencode({
+    Version   = "2012-10-17"
+    Statement = concat(var.custom_policy_statement, local.deny_insecure_transport_statement)
+  })
 }
 
 # If the flag is not changed, we create a deny http policy by default for the bucket
 resource "aws_s3_bucket_policy" "bucket_policy" {
-  count  = var.create_default_bucket_policy ? 1 : 0
+  count  = local.create_default_bucket_policy ? 1 : 0
   bucket = aws_s3_bucket.bucket.id
-  policy = jsonencode({
-    Version   = "2012-10-17"
-    Statement = local.deny_insecure_transport_statement
-  })
+  policy = local.merged_policy
 }

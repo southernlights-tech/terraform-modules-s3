@@ -37,6 +37,7 @@ No modules.
 |------|-------------|------|---------|:--------:|
 | <a name="input_bucket_name"></a> [bucket\_name](#input\_bucket\_name) | S3 Bucket Name | `string` | n/a | yes |
 | <a name="input_create_default_bucket_policy"></a> [create\_default\_bucket\_policy](#input\_create\_default\_bucket\_policy) | Let the module know if we need to create a policy | `bool` | `true` | no |
+| <a name="input_custom_policy_statement"></a> [custom\_policy\_statement](#input\_custom\_policy\_statement) | Optional list of policy statements to merge with the default deny insecure transport statement. | `list(any)` | `[]` | no |
 | <a name="input_enable_intelligent_tiering"></a> [enable\_intelligent\_tiering](#input\_enable\_intelligent\_tiering) | Enable Intelligent Tiering | `bool` | `true` | no |
 | <a name="input_enable_intelligent_tiering_archive_access"></a> [enable\_intelligent\_tiering\_archive\_access](#input\_enable\_intelligent\_tiering\_archive\_access) | Intelligent Tiering Archive Access (in days) | `string` | `"90"` | no |
 | <a name="input_enable_intelligent_tiering_deep_archive_access"></a> [enable\_intelligent\_tiering\_deep\_archive\_access](#input\_enable\_intelligent\_tiering\_deep\_archive\_access) | Intelligent Tiering Deep Archive Access (in days) | `string` | `"180"` | no |

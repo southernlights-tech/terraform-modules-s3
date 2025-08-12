@@ -54,3 +54,9 @@ variable "lifecycle_rules" {
 
   default = []
 }
+
+variable "custom_policy_statement" {
+  type        = list(any) # or use object(...) for stricter typing
+  description = "Optional list of policy statements to merge with the default deny insecure transport statement."
+  default     = []
+}
